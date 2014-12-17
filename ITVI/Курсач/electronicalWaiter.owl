@@ -11,16 +11,23 @@
 
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
      xml:base="http://www.semanticweb.org/maksym/ontologies/2014/11/electronicWaiter"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/maksym/ontologies/2014/11/electronicWaiter">
     <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal datatypeIRI="&rdfs;Literal">Антология системы &quot;Электронный официант&quot;</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#Account"/>
+    </Declaration>
     <Declaration>
         <Class IRI="#Address"/>
     </Declaration>
@@ -43,7 +50,10 @@
         <Class IRI="#Check"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#CreditCardInfo"/>
+        <Class IRI="#CreditCard"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Employee"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Food"/>
@@ -70,7 +80,7 @@
         <Class IRI="#Payment"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PriceInfo"/>
+        <Class IRI="#Price"/>
     </Declaration>
     <Declaration>
         <Class IRI="#RegisteredUser"/>
@@ -88,34 +98,31 @@
         <Class IRI="#Waiter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#address"/>
+        <ObjectProperty IRI="#hasAccount"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#bill"/>
+        <ObjectProperty IRI="#hasAddress"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#cardType"/>
+        <ObjectProperty IRI="#hasBill"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#client"/>
+        <ObjectProperty IRI="#hasCheck"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#creditCardInfo"/>
+        <ObjectProperty IRI="#hasCreditCard"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#orderItemStatus"/>
+        <ObjectProperty IRI="#hasInvoice"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#orderItems"/>
+        <ObjectProperty IRI="#hasOrder"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#orderStatus"/>
+        <ObjectProperty IRI="#hasOrderItems"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#priceInfo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#status"/>
+        <ObjectProperty IRI="#hasPrice"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#calories"/>
@@ -207,9 +214,66 @@
     <Declaration>
         <DataProperty IRI="#zipCode"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#jacobArtist"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#CardPayment"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasCheck"/>
+            <Class IRI="#Check"/>
+        </ObjectAllValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CashPayment"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasCheck"/>
+            <Class IRI="#Check"/>
+        </ObjectAllValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#InvoicePayment"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasInvoice"/>
+            <Class IRI="#Invoice"/>
+        </ObjectAllValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#RegisteredUser"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasAccount"/>
+            <Class IRI="#Account"/>
+        </ObjectAllValuesFrom>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Account"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Address"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
     <SubClassOf>
         <Class IRI="#Administrator"/>
-        <Class IRI="#RegisteredUser"/>
+        <Class IRI="#Employee"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bill"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bill"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasOrder"/>
+            <Class IRI="#Order"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bill"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasPrice"/>
+            <Class IRI="#Price"/>
+        </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#CardPayment"/>
@@ -228,6 +292,14 @@
         <Class IRI="#Bill"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#CreditCard"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Employee"/>
+        <Class IRI="#RegisteredUser"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Food"/>
         <Class IRI="#OrderItem"/>
     </SubClassOf>
@@ -244,8 +316,45 @@
         <Class IRI="#CashlessPayment"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Order"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Order"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasOrderItems"/>
+            <Class IRI="#OrderItem"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OrderItem"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OrderItem"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasPrice"/>
+            <Class IRI="#Price"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Partner"/>
-        <Class IRI="#RegisteredUser"/>
+        <Class IRI="#Visitor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Payment"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Payment"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasBill"/>
+            <Class IRI="#Bill"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Price"/>
+        <Class abbreviatedIRI="owl:Thing"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#RegisteredUser"/>
@@ -256,84 +365,204 @@
         <Class IRI="#OrderItem"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#User"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#User"/>
+        <ObjectMinCardinality cardinality="0">
+            <ObjectProperty IRI="#hasCreditCard"/>
+            <Class IRI="#CreditCard"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#User"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#hasAddress"/>
+            <Class IRI="#Address"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Visitor"/>
         <Class IRI="#RegisteredUser"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Waiter"/>
-        <Class IRI="#RegisteredUser"/>
+        <Class IRI="#Employee"/>
     </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#Administrator"/>
+        <Class IRI="#Waiter"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#CardPayment"/>
+        <Class IRI="#InvoicePayment"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Check"/>
+        <Class IRI="#Invoice"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Employee"/>
+        <Class IRI="#Visitor"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Food"/>
+        <Class IRI="#Service"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Guest"/>
+        <Class IRI="#RegisteredUser"/>
+    </DisjointClasses>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#orderItemStatus"/>
-        <ObjectProperty IRI="#status"/>
+        <ObjectProperty IRI="#hasCheck"/>
+        <ObjectProperty IRI="#hasBill"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#orderStatus"/>
-        <ObjectProperty IRI="#status"/>
+        <ObjectProperty IRI="#hasInvoice"/>
+        <ObjectProperty IRI="#hasBill"/>
     </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasAccount"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasAddress"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasBill"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasCheck"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasInvoice"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasPrice"/>
+    </FunctionalObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasAccount"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasAddress"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasBill"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasCheck"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasCreditCard"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasInvoice"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasOrderItems"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#hasPrice"/>
+    </AsymmetricObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasAccount"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasAddress"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasBill"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasCheck"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasCreditCard"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasInvoice"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasOrderItems"/>
+    </IrreflexiveObjectProperty>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#hasPrice"/>
+    </IrreflexiveObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#address"/>
-        <Class IRI="#User"/>
+        <ObjectProperty IRI="#hasAccount"/>
+        <Class IRI="#RegisteredUser"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#bill"/>
-        <Class IRI="#Payment"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#cardType"/>
-        <Class IRI="#CreditCardInfo"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#client"/>
+        <ObjectProperty IRI="#hasAddress"/>
         <Class IRI="#Invoice"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#client"/>
-        <Class IRI="#Order"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#creditCardInfo"/>
+        <ObjectProperty IRI="#hasAddress"/>
         <Class IRI="#User"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#orderItemStatus"/>
-        <Class IRI="#OrderItem"/>
+        <ObjectProperty IRI="#hasBill"/>
+        <Class IRI="#Payment"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#orderItems"/>
+        <ObjectProperty IRI="#hasCheck"/>
+        <Class IRI="#CardPayment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCheck"/>
+        <Class IRI="#CashPayment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCreditCard"/>
+        <Class IRI="#User"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasInvoice"/>
+        <Class IRI="#InvoicePayment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasOrderItems"/>
         <Class IRI="#Order"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#orderStatus"/>
-        <Class IRI="#Order"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#priceInfo"/>
+        <ObjectProperty IRI="#hasPrice"/>
         <Class IRI="#Bill"/>
     </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasPrice"/>
+        <Class IRI="#OrderItem"/>
+    </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#address"/>
+        <ObjectProperty IRI="#hasAccount"/>
+        <Class IRI="#Account"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasAddress"/>
         <Class IRI="#Address"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#bill"/>
+        <ObjectProperty IRI="#hasBill"/>
         <Class IRI="#Bill"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#client"/>
-        <Class IRI="#User"/>
+        <ObjectProperty IRI="#hasCheck"/>
+        <Class IRI="#Check"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#creditCardInfo"/>
-        <Class IRI="#CreditCardInfo"/>
+        <ObjectProperty IRI="#hasCreditCard"/>
+        <Class IRI="#CreditCard"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#orderItems"/>
+        <ObjectProperty IRI="#hasInvoice"/>
+        <Class IRI="#Invoice"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasOrderItems"/>
         <Class IRI="#OrderItem"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#priceInfo"/>
-        <Class IRI="#PriceInfo"/>
+        <ObjectProperty IRI="#hasPrice"/>
+        <Class IRI="#Price"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="#invoiceNumber"/>
@@ -353,7 +582,7 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#cardholderName"/>
-        <Class IRI="#CreditCardInfo"/>
+        <Class IRI="#CreditCard"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#city"/>
@@ -373,7 +602,7 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#discount"/>
-        <Class IRI="#PriceInfo"/>
+        <Class IRI="#Price"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#dueDate"/>
@@ -385,11 +614,11 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#expirationMonth"/>
-        <Class IRI="#CreditCardInfo"/>
+        <Class IRI="#CreditCard"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#expirationYear"/>
-        <Class IRI="#CreditCardInfo"/>
+        <Class IRI="#CreditCard"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#firstName"/>
@@ -405,7 +634,7 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#lastFourDigits"/>
-        <Class IRI="#CreditCardInfo"/>
+        <Class IRI="#CreditCard"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#lastName"/>
@@ -437,7 +666,7 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#price"/>
-        <Class IRI="#PriceInfo"/>
+        <Class IRI="#Price"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#quantity"/>
@@ -453,7 +682,7 @@
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#totalPrice"/>
-        <Class IRI="#PriceInfo"/>
+        <Class IRI="#Price"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#type"/>
@@ -587,9 +816,129 @@
         <DataProperty IRI="#zipCode"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Account</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Аккаунт в системе.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Address</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Адрес проживания для отправки накладной (при безналичном расчете)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Administrator</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Администратор. Может управлять меню, заказами, ценами, т.д.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Bill</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Расчетный документ</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CardPayment</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Расчет кредитной картой. Содержит в себе информацию о кредитной карте и чек.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CashPayment</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Оплата наличными. Содержит в себе чек.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CashlessPayment</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Безналичный расчет.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Check</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Чек при оплате на месте</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CreditCard</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Кредитная карта, может принадлежать любому пользователю</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Employee</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Сотрудник.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Food</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Товар вида еда.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Guest</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Незарегестрированный гость.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Invoice</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Накладная при оплате пост-фактум.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#InvoicePayment</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Оплата по накладной. Содержит в себе накладной счет. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Order</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Заказ. Должен содержать в себе хотябы один товар.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#OrderItem</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Товар.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Partner</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Партнер программы, имеет постоянную скидку.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Payment</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Платёж. Содержит общую цену, статус платежа.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Price</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Цена (с учетом налога и скидок)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#RegisteredUser</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Зарегестрированный пользователь. Имеет аккаунт в системе.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Service</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Товар вида услуга.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#User</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Конечный пользователь. Может иметь адрес (максимум один). Может иметь кредитную карту (0 или более).</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Visitor</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Обычный зарегестрированный пользователь-потребитель. Не имеет скидки, но внедрен в накопительную систему.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Waiter</IRI>
+        <Literal datatypeIRI="&rdfs;Literal">Официант, доставляющий заказы и занимающийся организационными вопросами.</Literal>
+    </AnnotationAssertion>
 </Ontology>
 
 
 
-<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
 
