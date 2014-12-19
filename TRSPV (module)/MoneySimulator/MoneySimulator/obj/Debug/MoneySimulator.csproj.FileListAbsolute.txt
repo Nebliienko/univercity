@@ -1,0 +1,10 @@
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\bin\Debug\MoneySimulator.exe.config
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\bin\Debug\MoneySimulator.exe
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\bin\Debug\MoneySimulator.pdb
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.csprojResolveAssemblyReference.cache
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.Properties.Resources.resources
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.csproj.GenerateResource.Cache
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.exe
+c:\users\maksym_nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.pdb
+C:\Users\Maksym_Nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.ApplicationForm.resources
+C:\Users\Maksym_Nebliienko\documents\visual studio 2013\Projects\MoneySimulator\MoneySimulator\obj\Debug\MoneySimulator.NameDialogBox.resources
